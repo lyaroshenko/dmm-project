@@ -34,3 +34,25 @@ class Graph:
         print("Adjacency List:")
         for vertex, edges in self.adjacency_list.items():
             print(f"{vertex}: {edges}")
+
+    def generate_random_graph(self, density, weight_range=(1, 100)):
+        max_edges = self.vertex_count * (self.vertex_count - 1) // 2
+        num_edges = int(max_edges * density)
+
+        edges = set()
+
+        while len(edges) < num_edges:
+            from_vertex = random.randint(0, self.vertex_count - 1)
+            to_vertex = random.randint(0, self.vertex_count - 1)
+
+            if from_vertex != to_vertex and (from_vertex, to_vertex) not in edges and (
+            to_vertex, from_vertex) not in edges:
+                weight = random.randint(*weight_range)
+                self.add_edge(from_vertex, to_vertex, weight)
+                edges.add((from_vertex, to_vertex))
+
+    def display_edges(self):
+        print("Edges of the Graph:")
+        for from_vertex, edges in self.adjacency_list.items():
+            for to_vertex, weight in edges:
+                print(f"{from_vertex} --({weight})--> {to_vertex}")
