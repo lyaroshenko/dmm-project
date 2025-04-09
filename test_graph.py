@@ -77,5 +77,21 @@ class TestGraph(unittest.TestCase):
         )
         self.assertEqual(captured_output.getvalue(), expected_output)
 
+    def test_generate_random_graph(self):
+        density = 0.5
+        weight_range = (1, 100)
+        self.graph = Graph(10)  # Створення графу з 10 вершинами
+        self.graph.generate_random_graph(density=density, weight_range=weight_range)
+
+        max_edges = self.graph.vertex_count * (self.graph.vertex_count - 1) // 2
+        expected_num_edges = int(max_edges * density)
+
+        actual_num_edges = sum(len(edges) for edges in self.graph.adjacency_list.values()) // 2
+        self.assertEqual(expected_num_edges, actual_num_edges, "Кількість ребер не відповідає заданій щільності")
+
+        for edges in self.graph.adjacency_list.values():
+            for _, weight in edges:
+                self.assertGreaterEqual(weight, weight_range[0], "Вага ребра менша за мінімальний діапазон")
+                self.assertLessEqual(weight, weight_range[1], "Вага ребра більша за максимальний діапазон")
 if __name__ == "__main__":
     unittest.main()
