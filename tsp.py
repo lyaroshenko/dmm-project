@@ -9,10 +9,10 @@ def tsp_alg(graph) -> ([int], int ) :
     matrix = graph.adjacency_matrix;
 
     # проверка на полноту
-    for i in range(n):
-        for j in range(n):
-            if matrix[i][j] == 0 and i != j :
-                return False
+    # for i in range(n):
+    #     for j in range(n):
+    #         if matrix[i][j] == 0 and i != j :
+    #             return False
 
 
     visited = []
@@ -38,7 +38,7 @@ def tsp_alg(graph) -> ([int], int ) :
         visited.append(next)
         path.append(next)
         total += min_weight
-        print(f'total: {total}')
+        # print(f'total: {total}')
 
         current = next
 
